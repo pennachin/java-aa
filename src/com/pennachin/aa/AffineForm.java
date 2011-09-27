@@ -544,13 +544,17 @@ public class AffineForm {
 //		return String.format("[%s %.3f %.3f]", type.toString().substring(0, 1), min, max);
 	}
 
+	public boolean contains(AffineForm other) {
+		if (type == Type.INFINITE)
+			return true;
+		else if (other.type == Type.INFINITE)
+			return false;
+		else
+			return (min < other.min) && (max > other.max);
+	}
+	
+	/** Simple test */
 	public static void main(String[] args) {
-
-		
-		//  (+F (expF (negF x)) (sqrS (expS (sqrS (sqrS c1)))))
-		// [2.682687330287812E203, 14.10199220730372, 2.682687330287812E203, 2.682687330287812E203 -- {3=-1.0350989121400223}, FINITE]
-
-
 		AffineForm x = new AffineForm(-3.4267827831536475, 0.6866020895701899, 3);
 		AffineForm c1 = new AffineForm(-3.9120052);
 		
@@ -560,15 +564,8 @@ public class AffineForm {
 
 		System.out.println(r1);
 		System.out.println(r2);
-		System.out.println(r);
-	}
 
-	public boolean contains(AffineForm other) {
-		if (type == Type.INFINITE)
-			return true;
-		else if (other.type == Type.INFINITE)
-			return false;
-		else
-			return (min < other.min) && (max > other.max);
+		// [2.682687330287812E203, 14.10199220730372, 2.682687330287812E203, 2.682687330287812E203 -- {3=-1.0350989121400223}, FINITE]
+		System.out.println(r);
 	}
 }
